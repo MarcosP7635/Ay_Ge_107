@@ -1,0 +1,50 @@
+arc lamps are sufficient
+
+dark exposures are namd dark. 10 seconds long.
+
+30 second flats
+
+scp the fits
+/rdata/TSPEC/20211023
+note the path!
+
+login: ltsgoply
+
+Use the OH emission lines for wavelength calibration. 
+Ask about lamps. TSPEC is consistent. 
+
+SAO 35402 - pointing star
+
+566 834 153
+
+exposure time guider - 7s needs to match background
+5' East
+23 26 27.285, 50 40 31.67 
+23:26:31.7, +50:40:33
+delta = delta(ra)*cos(dec), .33 #dec was never converted so it's in time seconds!
+
+Don't conflate arcseconds and time seconds!
+check screen capture. 
+Moderate to heavy cloud cover for ABBA and Full Moon has risen (9:24 PM Pacific Time) 
+	5 minute each of the 4 exposures in ABBA. 
+Will need secondary background calibration mentioned in class. 
+
+Type the snap command into the TSPEC;cl window
+First image is image0065.fits
+image0065
+
+Onedif and TWodif both appear noisy. 
+
+9:50 PM ABBA 5 minute exposures each. image0069 through image0072
+Persistence can interfere with later obsevations
+
+
+There is signal, it's just all telluric. I really just measured OH lines. 
+
+image0094 - image0093 = TritonDiff1
+image0096 - image0095 = TritonDiff2
+same for TritonDiff3 and TritonDiff4. All 60s exposures. TritonDiff5 and TritonDiff6
+were 5 minutes.
+image0101 through image0104 were all 5 minute exposures.
+Some of the Triton images incorrectly have the wrong name (they say Arnav). 
+image0108 - image0107 = Hip115119.fits 30 second each ABBA dither. 
