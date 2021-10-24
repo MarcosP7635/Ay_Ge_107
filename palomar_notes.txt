@@ -48,3 +48,23 @@ were 5 minutes.
 image0101 through image0104 were all 5 minute exposures.
 Some of the Triton images incorrectly have the wrong name (they say Arnav). 
 image0108 - image0107 = Hip115119.fits 30 second each ABBA dither. 
+
+10/23. The new path is /rdata/TSPEC/20211024
+Darks and calibrations! 
+No reason to not take extra calibrations! No biases with TSPEC because it's IR. 
+30 second darks -> image0001-image0010.fits
+
+Take extra cals when the weather is bad! 
+5 minute darks -> image0021 - image0025.fits 
+
+6:40 PM. Very cloudy so we're taking more calibration data. 
+5 minute darks -> image0026 - image0030.fits
+
+10 second flats -> image0031 - image0045.fits
+30 second flats -> image0047 - image0055.fits 
+3.81 second bias with the lamp on -> image0056 - image0072.fits 
+3.81 second bias without the lamp on -> image0073 - image0089.fits
+image0046 is also a 30 second flat despite what the header says. 
+
+Custom dither routine - 
+
