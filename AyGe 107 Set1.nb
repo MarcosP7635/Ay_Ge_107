@@ -1,0 +1,416 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     17530,        408]
+NotebookOptionsPosition[     14476,        352]
+NotebookOutlinePosition[     15260,        377]
+CellTagsIndexPosition[     15217,        374]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell["\<\
+1. For an observer at any given latitude, some stars never set and some stars \
+never rise.What is the declination range in each of these two cases, at \
+Palomar Observatory? You will have to look up the latitude, which you need \
+anyway for later work.\
+\>", "Text",
+ CellChangeTimes->{{3.8425433493844633`*^9, 3.8425433633584423`*^9}, {
+   3.8425438132515078`*^9, 3.8425438139960327`*^9}, 
+   3.842577807729986*^9},ExpressionUUID->"3227a58e-8673-41a7-9e8a-\
+f801e0483c98"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"lat", " ", "=", 
+   RowBox[{"N", "[", 
+    RowBox[{"33", "+", 
+     RowBox[{"(", 
+      RowBox[{"21", "/", "60"}], ")"}], "+", 
+     RowBox[{"(", 
+      RowBox[{"23", "/", "3600"}], ")"}]}], "]"}]}], ";", " ", 
+  "\"\<latitude of Palomar\>\"", ";"}], "\[IndentingNewLine]", 
+ RowBox[{"visibleRange", " ", "=", " ", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"Min", "[", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"lat", " ", "+", "90"}], ")"}], ",", " ", "90"}], "]"}], ",", 
+    " ", 
+    RowBox[{"90", "-", "lat"}]}], "}"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.842543364757588*^9, 3.8425433691709785`*^9}, {
+  3.842543400618616*^9, 3.842543519177144*^9}, {3.8425436050266285`*^9, 
+  3.8425437934633284`*^9}, {3.8425439420629115`*^9, 3.8425439699126053`*^9}, {
+  3.8425673093919473`*^9, 3.8425673254947357`*^9}, {3.84256735893231*^9, 
+  3.842567393759008*^9}, {3.8425698039633813`*^9, 3.842569816984869*^9}, {
+  3.842577720207303*^9, 3.8425777211079283`*^9}, {3.842577861478648*^9, 
+  3.8425778797303247`*^9}},
+ CellLabel->"In[54]:=",ExpressionUUID->"248e94ae-f60a-4102-9fe2-eff46c2c315d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"90", ",", "56.64361111111111`"}], "}"}]], "Output",
+ CellChangeTimes->{3.8425778805222206`*^9},
+ CellLabel->"Out[55]=",ExpressionUUID->"65b906fc-556c-48b2-bf7b-eb822eb43cd6"]
+}, Open  ]],
+
+Cell["\<\
+= The range of declinations in decimal degrees for stars the never set when \
+observing from Palomar Observatory .\
+\>", "Text",
+ CellChangeTimes->{{3.842543758018833*^9, 3.8425438051749125`*^9}, {
+  3.8425439021824455`*^9, 3.8425439317715793`*^9}, {3.8425778879371977`*^9, 
+  3.8425779209342613`*^9}},ExpressionUUID->"427790e8-b09c-4db7-b33d-\
+965e05d0b6aa"],
+
+Cell["\<\
+2. Assuming the average number of daylight hours and dark hours over the \
+course of a year at any given latitude is 12, estimate how many dark hours we \
+will have for the observations at Palomar Observatory on our assigned nights \
+of 22/23 October, 2021? How many hours would be available if the observing \
+run was on the same night in June? December?\
+\>", "Text",
+ CellChangeTimes->{{3.8425779229179573`*^9, 
+  3.842577932203265*^9}},ExpressionUUID->"90513bfe-0432-4bda-9391-\
+121b9350d329"],
+
+Cell[BoxData[{
+ RowBox[{"\"\<By formula 2.2.0, the spherical law of sines, and the spherical \
+law of cosines, with the following spherical triangle showing the location of \
+the Sun relative to the Autumnal equinox\>\"", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Cos", "[", "dec", "]"}], " ", "=", " ", 
+  RowBox[{"Cos", "[", 
+   TemplateBox[{"23.5", 
+     RowBox[{"\[InvisibleSpace]", "\"\[Degree]\""}], "degrees", 
+     "\"AngularDegrees\""},
+    "QuantityPostfix"], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.842580447400522*^9, 
+  3.84258059394374*^9}},ExpressionUUID->"d4594ffa-c1b7-4240-861b-\
+f4f9e1c6686b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"\"\<Daylight ranges between 10 hours and 14 hours. We have for the \
+nightLength(day) = 12+2*Sin[(equinox-day)]. Conveniently it will move \
+approximately 1 degree per day\>\"", ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"nightLength", "[", "day_", "]"}], " ", ":=", " ", 
+   RowBox[{"N", "[", 
+    RowBox[{"12", "+", 
+     RowBox[{"2", "*", 
+      RowBox[{"Sin", "[", 
+       RowBox[{"(", "day", ")"}], "]"}]}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"nightLength", "[", 
+  TemplateBox[{"30", 
+    RowBox[{"\[InvisibleSpace]", "\"\[Degree]\""}], "degrees", 
+    "\"AngularDegrees\""},
+   "QuantityPostfix"], "]"}]}], "Input",
+ CellChangeTimes->{{3.842543898395109*^9, 3.8425439200086513`*^9}, {
+  3.842544030612521*^9, 3.84254404091547*^9}, {3.8425494014722023`*^9, 
+  3.842549437208501*^9}, {3.842549475837387*^9, 3.84254948897805*^9}, {
+  3.842549538026615*^9, 3.8425496032799463`*^9}, {3.842549673469492*^9, 
+  3.8425496765081315`*^9}, {3.842549828163413*^9, 3.842549925053224*^9}, {
+  3.842550000188944*^9, 3.8425500500066633`*^9}, {3.842568520057467*^9, 
+  3.8425686520988245`*^9}, {3.8425687758176517`*^9, 3.8425687940240903`*^9}, {
+  3.8425688439068*^9, 3.8425688443910313`*^9}, {3.8425692180513086`*^9, 
+  3.842569346146113*^9}, {3.84256938074273*^9, 3.8425693830576363`*^9}, {
+  3.8425695553285227`*^9, 3.8425695580779266`*^9}, {3.842569687974798*^9, 
+  3.8425696880685635`*^9}},
+ CellLabel->"In[33]:=",ExpressionUUID->"7ab7e165-45e7-4bb4-bcdf-b14bcf345517"],
+
+Cell[BoxData["13.`"], "Output",
+ CellChangeTimes->{{3.8425693729544597`*^9, 3.8425693962928615`*^9}, 
+   3.842569558999254*^9, 3.842569708279039*^9},
+ CellLabel->"Out[35]=",ExpressionUUID->"b60e6671-af6a-434a-a38f-3a6847c8e6ce"]
+}, Open  ]],
+
+Cell["= The length of the night in hours on October 22/23", "Text",
+ CellChangeTimes->{{3.8425693485201473`*^9, 3.842569369355663*^9}, 
+   3.842569401490354*^9},ExpressionUUID->"24aa4b99-09c9-4c8e-92ab-\
+23c5b3392969"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"nightLength", "[", 
+   TemplateBox[{
+     RowBox[{"(", 
+       RowBox[{"360", "-", 
+         RowBox[{"3", "*", 
+           RowBox[{"(", "30", ")"}]}]}], ")"}], 
+     RowBox[{"\[InvisibleSpace]", "\"\[Degree]\""}], "degrees", 
+     "\"AngularDegrees\""},
+    "QuantityPostfix"], "]"}], "  "}]], "Input",
+ CellChangeTimes->{{3.842569312727645*^9, 3.842569321367295*^9}, {
+  3.8425694131149693`*^9, 3.842569457004459*^9}, {3.8425697290849123`*^9, 
+  3.842569747022502*^9}, {3.8425700030947704`*^9, 3.84257001737918*^9}},
+ CellLabel->"In[46]:=",ExpressionUUID->"666ba535-a7c2-4c24-86a8-befe46ac4d2b"],
+
+Cell[BoxData["10.`"], "Output",
+ CellChangeTimes->{3.842570018607052*^9},
+ CellLabel->"Out[46]=",ExpressionUUID->"58c9fd8f-59f3-4682-88a6-c7d574c3fade"]
+}, Open  ]],
+
+Cell["= The length of the night in hours in June", "Text",
+ CellChangeTimes->{{3.842569437396967*^9, 3.8425694491166477`*^9}, 
+   3.8425695071241584`*^9, {3.842570021510061*^9, 
+   3.8425700260147166`*^9}},ExpressionUUID->"b0af4f66-e710-42a5-a516-\
+8778fc66c867"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"nightLength", "[", 
+  TemplateBox[{
+    RowBox[{"3", "*", "30"}], 
+    RowBox[{"\[InvisibleSpace]", "\"\[Degree]\""}], "degrees", 
+    "\"AngularDegrees\""},
+   "QuantityPostfix"], "]"}]], "Input",
+ CellChangeTimes->{{3.842569508279804*^9, 3.842569540952318*^9}, {
+  3.84257004512895*^9, 3.842570049551798*^9}},
+ CellLabel->"In[47]:=",ExpressionUUID->"3fd11caf-e268-4fcf-b003-19f7a1d84db2"],
+
+Cell[BoxData["14.`"], "Output",
+ CellChangeTimes->{{3.8425695362171073`*^9, 3.842569561235224*^9}, 
+   3.842569714727672*^9, 3.8425700502847257`*^9},
+ CellLabel->"Out[47]=",ExpressionUUID->"563a5af0-5f2a-4100-bca6-7c053a1b9ab0"]
+}, Open  ]],
+
+Cell["= The length of the night in hours in December", "Text",
+ CellChangeTimes->{{3.8425695648342714`*^9, 
+  3.842569580989984*^9}},ExpressionUUID->"c6e4b477-b981-42a0-a864-\
+c219f5f98f38"],
+
+Cell["\<\
+3. 
+a. Watch this time-lapse video of a night on Mauna Kea (in Hawaii) \
+https://www.gemini.edu/sciops/telescopes-and-sites/weather/mauna-kea/cloud-\
+cam/bazfoo/West/20210201.mp4. This is a large file and takes about 15 sec to \
+load.
+i. Describe in about a paragraph everything you notice going on, both in the
+sky and on the ground.
+
+#look at which way the stars are moving, if you see the Milky Way
+
+ii. Approximately which direction is the camera pointed, and how do you \
+conclude this?
+
+The camera is pointed to the west, due to the large number of objects visibly \
+setting below the horizon.
+
+iii. What is the phase of the moon, and how do you conclude this?
+
+The Moon sets after sunset but before sunrise
+
+b. Watch this time-lapse video of a night on Paranal (in Chile) https://www.
+youtube.com/watch?v=ZfknKhz83Xs.
+i. As above, approximately which direction is the camera pointed and what is \
+the phase of the moon?
+
+Since objects are setting below the horizon in the west, which is to the \
+right of the image, the camera is pointing south. The Moon appears to between \
+1/3 - 1/2 of its maximum altitude near the beginning of the timelapse, \
+suggesting it is waxing gibbous. 0
+
+ii. What does the way the Milky Way rises and sets tell us about its \
+orientation relative to the Earth\[CloseCurlyQuote]s rotation axis? The plane \
+of the Solar System?
+
+
+
+iii. The smudges to the left of the Milky Way are the Large and Small \
+Magellenic Clouds (LMC and SMC for short), both satellite galaxies of the \
+Milky Way. Looking up their coordinates on SIMBAD \
+(http://simbad.u-strasbg.fr/simbad/sim-fid), can you estimate what time of \
+year the video was recorded?
+
+SMC RA  is approximately 50 minutes. The antisolar point crosses the meridian \
+halfway through the video, since it begans and ends with sunset and sunrise. \
+The SMC crosses the meridian 2/3 of the way through the video, which is 1/6 \
+of the video after the antisolar point crosses the meridian. Based on the \
+description, there are 11.5 hours between the first and last exposure.  Thus \
+we have for the RA of the Sun in hours: \
+\>", "Text",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGCQAGIQvaO7zkxo4RvHzMe/bEG032tLHxA9ZaqzP4j+vvlz
+Koje5xecBaLTvjvlgegODdd8EN0TZVMKogUkW8tAdGPVlDoQfeXL2m4QPePT
+pcUgOu5P+HIw/dRtNVi8auoeED2Nc8INEK333O4ViA473vUBREfPdv0Dolc5
+32UUBtI3zO+DaRtJeTYQXcY4WwhE74jMUgTR5VNClUH01+TVmqIgfR6vtEG0
+X3jDWlkgfabq1QYQvUDhpYsckF7GreUGoq+XNe9WANJW5m17QPQ+3msnQDSb
+su0ZEB1xVOwCiL5zKwNMb9f6cA1EXxDhvQ6ivSVv3gPR8xh47oPornOPpigC
+aYflRtNAdEX80XkgetO6k2C6xyzdWglI83UYxIJoANeFvSs=
+  "],ExpressionUUID->"0c508808-4e81-4630-b2ee-5e4fbe1ce1b8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(", 
+   RowBox[{"11.5", "*", 
+    FractionBox["5", "6"]}], ")"}], "+", 
+  RowBox[{"(", 
+   RowBox[{"50", "/", "60"}], ")"}]}]], "Input",
+ CellChangeTimes->{{3.84254581967647*^9, 3.8425458413213453`*^9}, {
+   3.842545949529952*^9, 3.842545950563512*^9}, {3.842575685890224*^9, 
+   3.8425756880953255`*^9}, 3.842576854826971*^9, {3.8425769587597466`*^9, 
+   3.8425770034743977`*^9}, {3.842580122159896*^9, 3.84258012320214*^9}, {
+   3.842580302764805*^9, 3.8425803064908714`*^9}},
+ CellLabel->"In[59]:=",ExpressionUUID->"33d95472-b946-4fb5-969e-26c5a1ef0cff"],
+
+Cell[BoxData["10.416666666666668`"], "Output",
+ CellChangeTimes->{{3.8425458378071957`*^9, 3.842545842334023*^9}, 
+   3.8425459512775593`*^9, 3.842575688776504*^9, {3.842576985313778*^9, 
+   3.842577005129969*^9}, 3.8425770739694796`*^9, 3.8425803276013756`*^9},
+ CellLabel->"Out[59]=",ExpressionUUID->"a5a4ccc5-48c0-4f62-a6dc-c16bf650e340"]
+}, Open  ]],
+
+Cell["Which corresponds to late August", "Text",
+ CellChangeTimes->{{3.8425757044430633`*^9, 3.8425757052449465`*^9}, {
+  3.84258039048923*^9, 
+  3.8425803992572412`*^9}},ExpressionUUID->"d323302b-88cc-4bbe-a1fc-\
+83f2580a45f5"],
+
+Cell["\<\
+
+Thus the Sun was at an RA of approximately 11 hours.
+
+The RA of the LMC is approximately 5.5 hours and it reaches the antimeridian \
+at approximately 2 hours after sunrise. This would mean it is 4 hours ahead \
+of the Sun. 
+
+Thus the Sun was was at an RA of approximately 11.5 hours. 
+
+Averaging these two estimates, we have 
+Since we can expect the RA of the Sun to change by 2 hours per month, we can \
+estimate this video was taken in late August. \
+\>", "Text",
+ CellChangeTimes->{{3.842545843860921*^9, 3.842545894102062*^9}, {
+  3.842547997299634*^9, 3.8425479993053246`*^9}, {3.8425768619240074`*^9, 
+  3.842576862650077*^9}},ExpressionUUID->"5f11a22c-a45f-4431-8901-\
+ce2068ba5027"],
+
+Cell["\<\
+
+4. Write a simple airmass calculator, using the equation given in class (or \
+the reading) for sec(z) where z is zenith distance. You will want to be able \
+to specify a coordinate in RA, Dec (\[Alpha], \[Delta]) and an observing \
+date, and then for a given observatory latitude and longitude, compute \
+airmass as a function of hour angle or LST or UT. This tool will help you \
+figure out which objects you can reasonably observe from Palomar on our \
+assigned nights. Please turn in an example plot and your code. Note that it \
+is required that you write your own code for this and not just use existing \
+tools (e.g. jskycalc) or python imports. You can continue to improve this \
+over the next two weeks as you
+plan for the 200\[CloseCurlyDoubleQuote] observing.\
+\>", "Text",
+ CellChangeTimes->{{3.8425441142118654`*^9, 
+  3.842544168519169*^9}},ExpressionUUID->"f3c84b73-9269-4f09-8124-\
+ffdaccc7f311"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.8425777731452255`*^9, 
+  3.8425777776147704`*^9}},ExpressionUUID->"69b43297-8f63-4a13-af14-\
+8c9be6c9ff52"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{
+  3.842548088233678*^9, {3.842580091562741*^9, 3.842580095012542*^9}, {
+   3.8425891623351707`*^9, 
+   3.8425891635137234`*^9}},ExpressionUUID->"9e023d70-7cde-4ec1-b22e-\
+5389889d89e4"],
+
+Cell["\<\
+
+5.  See the write-up in CANVAS on the Palomar Project. Start considering the \
+kind of object you want to propose for your Palomar time, and setting up your \
+two person teams1 for planning the observation details and actually taking \
+the data at the telescope. Your proposals are due on 14 October and will be \
+presented in class (<5 min). For this week, start planning out the work \
+needed over the next week, and just give us sentence on your object type and \
+partnership.\
+\>", "Text",
+ CellChangeTimes->{{3.842544190429473*^9, 3.8425442172700877`*^9}, 
+   3.8425480833596554`*^9},ExpressionUUID->"f26d07f5-d8ff-4f5a-9c85-\
+82ff4c36cdb9"]
+},
+WindowSize->{1142.3999999999999`, 576.9},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+TaggingRules->{
+ "WelcomeScreenSettings" -> {"FEStarting" -> False}, "TryRealOnly" -> False},
+Magnification:>1.3 Inherited,
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (March 18, 2020)",
+StyleDefinitions->Notebook[{
+   Cell[
+    StyleData[StyleDefinitions -> "Default.nb"]], 
+   Cell[
+    StyleData["Text"]]}, Visible -> False, FrontEndVersion -> 
+  "12.1 for Microsoft Windows (64-bit) (March 18, 2020)", StyleDefinitions -> 
+  "PrivateStylesheetFormatting.nb"],
+ExpressionUUID->"c0baf820-de5d-4065-953c-f5cf82ca0f6d"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 484, 9, 75, "Text",ExpressionUUID->"3227a58e-8673-41a7-9e8a-f801e0483c98"],
+Cell[CellGroupData[{
+Cell[1067, 33, 1153, 26, 87, "Input",ExpressionUUID->"248e94ae-f60a-4102-9fe2-eff46c2c315d"],
+Cell[2223, 61, 214, 4, 41, "Output",ExpressionUUID->"65b906fc-556c-48b2-bf7b-eb822eb43cd6"]
+}, Open  ]],
+Cell[2452, 68, 369, 7, 45, "Text",ExpressionUUID->"427790e8-b09c-4db7-b33d-965e05d0b6aa"],
+Cell[2824, 77, 507, 9, 105, "Text",ExpressionUUID->"90513bfe-0432-4bda-9391-121b9350d329"],
+Cell[3334, 88, 624, 13, 91, "Input",ExpressionUUID->"d4594ffa-c1b7-4240-861b-f4f9e1c6686b"],
+Cell[CellGroupData[{
+Cell[3983, 105, 1528, 29, 117, "Input",ExpressionUUID->"7ab7e165-45e7-4bb4-bcdf-b14bcf345517"],
+Cell[5514, 136, 228, 3, 41, "Output",ExpressionUUID->"b60e6671-af6a-434a-a38f-3a6847c8e6ce"]
+}, Open  ]],
+Cell[5757, 142, 218, 3, 45, "Text",ExpressionUUID->"24aa4b99-09c9-4c8e-92ab-23c5b3392969"],
+Cell[CellGroupData[{
+Cell[6000, 149, 631, 14, 43, "Input",ExpressionUUID->"666ba535-a7c2-4c24-86a8-befe46ac4d2b"],
+Cell[6634, 165, 152, 2, 41, "Output",ExpressionUUID->"58c9fd8f-59f3-4682-88a6-c7d574c3fade"]
+}, Open  ]],
+Cell[6801, 170, 263, 4, 45, "Text",ExpressionUUID->"b0af4f66-e710-42a5-a516-8778fc66c867"],
+Cell[CellGroupData[{
+Cell[7089, 178, 414, 9, 42, "Input",ExpressionUUID->"3fd11caf-e268-4fcf-b003-19f7a1d84db2"],
+Cell[7506, 189, 228, 3, 41, "Output",ExpressionUUID->"563a5af0-5f2a-4100-bca6-7c053a1b9ab0"]
+}, Open  ]],
+Cell[7749, 195, 190, 3, 45, "Text",ExpressionUUID->"c6e4b477-b981-42a0-a864-c219f5f98f38"],
+Cell[7942, 200, 2643, 58, 1121, "Text",ExpressionUUID->"0c508808-4e81-4630-b2ee-5e4fbe1ce1b8"],
+Cell[CellGroupData[{
+Cell[10610, 262, 592, 12, 59, "Input",ExpressionUUID->"33d95472-b946-4fb5-969e-26c5a1ef0cff"],
+Cell[11205, 276, 341, 4, 41, "Output",ExpressionUUID->"a5a4ccc5-48c0-4f62-a6dc-c16bf650e340"]
+}, Open  ]],
+Cell[11561, 283, 228, 4, 45, "Text",ExpressionUUID->"d323302b-88cc-4bbe-a1fc-83f2580a45f5"],
+Cell[11792, 289, 701, 17, 314, "Text",ExpressionUUID->"5f11a22c-a45f-4431-8901-ce2068ba5027"],
+Cell[12496, 308, 922, 16, 254, "Text",ExpressionUUID->"f3c84b73-9269-4f09-8124-ffdaccc7f311"],
+Cell[13421, 326, 156, 3, 36, "Input",ExpressionUUID->"69b43297-8f63-4a13-af14-8c9be6c9ff52"],
+Cell[13580, 331, 232, 5, 36, "Input",ExpressionUUID->"9e023d70-7cde-4ec1-b22e-5389889d89e4"],
+Cell[13815, 338, 657, 12, 165, "Text",ExpressionUUID->"f26d07f5-d8ff-4f5a-9c85-82ff4c36cdb9"]
+}
+]
+*)
+
