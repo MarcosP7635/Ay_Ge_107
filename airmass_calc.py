@@ -1,47 +1,32 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from  astropy.time import Time
+#all dates and times are GMST
 
-z = np.linspace(0, 90, 10**4)
-alt = 90 - z
-X = 1 / np.sin(np.radians(alt + 244 / (165 + 47 * alt**1.1)))
-label = 'Plane-Parallel approx.'
-plt.plot(z, 1 / np.cos(np.radians(z)), label = label, lw = 7, ls = 'dotted')
-plt.xlabel('Zenith Angle (deg)')
-plt.ylabel('Airmass')
-plt.ylim(0, 10)
-plt.legend()
-#plt.show()
 
 #date must be of the form "year-month-day hour:minute:seconds"
-
-def airmass_calc (ra, dec, date, lat, long):
+def airmass_calc (ra, dec, date, utc, lat, long):        
     #base everything around noon local time
     #meridian moves 360 degrees per year, and is 0 on vernal equinox
     #base everything on vernal equinox 2021
     #all time will be kept in hours
-    vernal_equinox = Time("2021-03-20 12:00:00") #when the meridian has 0 RA
+    autumnal_equinox = Time("2021-09-22 00:00:00") 
+    #when the RA on the meridian matches the time of day
     date = Time(date)
-    deltaTime = date - vernal_equinox
-    delta_ra = deltaTime.value * 24/365
-    print(delta_ra)
-    '''
-    hour_angle = hour_angle(ra, dec, date)
-    airmass = 1 / (np.sin(lat) * np.sin(dec) +
-        np.cos(lat) * np.cos(dec) * np.cos(hour_angle))
-    lst = hour_angle + ra
-    #get an array of lst values and corresponding airmasses, then plot them
-    #against each other
-    return airmass
-    '''
-
-ra = 5.22
-dec = 22.2
-lat = 33.3
-long = -116.8
-date = "2021-10-23 00:00:00"
-
-airmass_calc(ra, dec, date, lat, long)
-
-def hour_angle(ra, dec, date):
-    return
+    deltaTime = date - autumnal_equinox #deltaTime.value will be in days
+    lst = float(deltaTime.value) * 24 * (360 / 365) / 365
+    #account for the movement of Earth through its orbit
+    lst = lst + float((deltaTime.value - int(deltaTime.value)) * 24)  
+    #account for Earth's rotation about the spin axis
+    if utc:
+        lst += long * 24 / 360 #adjust for location 
+    lst %= 24 
+    hour_angle = lst - ra #adjust for star position
+    hour_angle %= 24
+    #calculate airmass
+    partone = np.sin(np.deg2rad(lat)) * np.sin(np.deg2rad(dec))
+    parttwo = np.cos(np.deg2rad(lat)) * np.cos(np.deg2rad(dec))
+    parttwo *= np.cos(hour_angle * np.pi / 12)
+    airmass = 1 / (partone + parttwo)
+    zenith_angle = np.arccos(1 / airmass) * 180 / np.pi 
+    return (airmass, hour_angle)
