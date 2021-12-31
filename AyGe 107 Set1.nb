@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1161485,      19169]
-NotebookOptionsPosition[   1158273,      19112]
-NotebookOutlinePosition[   1159057,      19137]
-CellTagsIndexPosition[   1159014,      19134]
+NotebookDataLength[   1164336,      19239]
+NotebookOptionsPosition[   1161120,      19182]
+NotebookOutlinePosition[   1161904,      19207]
+CellTagsIndexPosition[   1161861,      19204]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -19084,10 +19084,80 @@ f/v/ADjpqzY=\
 \>", "ImageResolution" -> \
 240.],ExpressionUUID->"c896724d-220e-4b5b-9995-acb1eefc20b6"],
 
-Cell[BoxData[""], "Input",
- CellChangeTimes->{{3.8425777731452255`*^9, 
-  3.8425777776147704`*^9}},ExpressionUUID->"69b43297-8f63-4a13-af14-\
-8c9be6c9ff52"],
+Cell["\<\
+#link to Github: \
+https://github.com/MarcosP7635/Ay_Ge_107/blob/main/Plotting%20Airmass.ipynb 
+import numpy as np
+import matplotlib.pyplot as plt
+from  astropy.time import Time
+#all dates and times are GMST #date must be of the form \"year-month-day \
+hour:minute:seconds\"
+def airmass_calc (ra, dec, date, utc, lat, long) :        
+     #base everything around noon local time
+    #meridian moves 360 degrees per year, and is 0 on vernal equinox
+    #base everything on vernal equinox 2021
+    #all time will be kept in hours
+    autumnal_equinox = Time (\"2021-09-22 00:00:00\") 
+    #when the RA on the meridian matches the time of day
+    date = Time (date)
+    deltaTime = date - autumnal_equinox #deltaTime.value will be in days
+    lst = float (deltaTime.value) * 24 * (360 / 365) / 365
+    #account for the movement of Earth through its orbit
+    lst = lst + float ((deltaTime.value - int (deltaTime.value)) * 24)  
+    #account for Earth' s rotation about the spin axis
+    if utc :
+           lst += long * 24 / 360 #adjust for location 
+    lst % = 24 
+    hour_angle = lst - ra #adjust for star position
+    hour_angle % = 24
+    #calculate airmass
+    partone = np.sin (np.deg2rad (lat)) * np.sin (np.deg2rad (dec))
+    parttwo = np.cos (np.deg2rad (lat)) * np.cos (np.deg2rad (dec))
+    parttwo *= np.cos (hour_angle * np.pi / 12)
+    airmass = 1 / (partone + parttwo)
+    zenith_angle = np.arccos (1 / airmass) * 180 / np.pi 
+    return (airmass, hour_angle)
+date = Time (\"2021-10-22 18:00:00\")
+ra = 24
+dec = 41
+lat = 33.3
+long = -116.8
+date -= (long / 360) #convert to utc
+hours = 12
+n = 2
+steps = hours * int (10 ** n)
+increment_divisor = 24 * int (10 ** n)
+time_array = np.array (([date] * steps))
+airmass_array, hour_angle _array = np.empty (steps), np.empty (steps) 
+utc = True
+for index in range (len (time_array)) :
+     #dates are added in units of days, so this code converts to hours
+    time_array[index] +=  index / increment_divisor
+    date = time_array[index]
+    airmass_array[index], hour_angle _array[index] = airmass_calc (ra, dec, 
+                                                   date.value, utc, lat, long)
+fig = plt.figure ()
+plt.scatter (hour_angle _array, airmass_array, s = 3)
+fig.dpi = 1200
+plt.xlabel (' Hour Angle')
+plt.ylabel (' Airmass')
+plt.title (' RA = ' + str (np.around (ra, 2)) + ', Dec = ' 
+               + str (np.around (dec, 2)) + '. Lat = ' + str (np.around (lat, \
+2))
+               + ' and Long = ' + str (np.around (long, 2)))
+plt.grid (which = ' major', color = ' black')
+plt.grid (which = ' minor', color = ' grey', alpha = 0.4)
+plt.minorticks_on ()
+plt.yticks ()
+plt.xticks ()
+plt.text (x = -1, y = -(10 ** .75),
+           s = \"RA is units of decimal hours. All other coordinates are in \
+degrees.\")\
+\>", "Input",
+ CellChangeTimes->{{3.8425777731452255`*^9, 3.8425777776147704`*^9}, {
+  3.8481661461523857`*^9, 3.8481661905652137`*^9}},
+ FormatType->
+  "TextForm",ExpressionUUID->"69b43297-8f63-4a13-af14-8c9be6c9ff52"],
 
 Cell[BoxData[""], "Input",
  CellChangeTimes->{
@@ -19167,10 +19237,10 @@ Cell[11205, 276, 341, 4, 41, "Output",ExpressionUUID->"a5a4ccc5-48c0-4f62-a6dc-c
 Cell[11561, 283, 228, 4, 45, "Text",ExpressionUUID->"d323302b-88cc-4bbe-a1fc-83f2580a45f5"],
 Cell[11792, 289, 701, 17, 314, "Text",ExpressionUUID->"5f11a22c-a45f-4431-8901-ce2068ba5027"],
 Cell[12496, 308, 922, 16, 254, "Text",ExpressionUUID->"f3c84b73-9269-4f09-8124-ffdaccc7f311"],
-Cell[13421, 326, 1143794, 18758, 709, 856634, 14049, "CachedBoxData", "BoxData", "Input",ExpressionUUID->"c896724d-220e-4b5b-9995-acb1eefc20b6"],
-Cell[1157218, 19086, 156, 3, 36, "Input",ExpressionUUID->"69b43297-8f63-4a13-af14-8c9be6c9ff52"],
-Cell[1157377, 19091, 232, 5, 36, "Input",ExpressionUUID->"9e023d70-7cde-4ec1-b22e-5389889d89e4"],
-Cell[1157612, 19098, 657, 12, 165, "Text",ExpressionUUID->"f26d07f5-d8ff-4f5a-9c85-82ff4c36cdb9"]
+Cell[13421, 326, 1143794, 18758, 710, 856634, 14049, "CachedBoxData", "BoxData", "Input",ExpressionUUID->"c896724d-220e-4b5b-9995-acb1eefc20b6"],
+Cell[1157218, 19086, 3003, 73, 1378, "Input",ExpressionUUID->"69b43297-8f63-4a13-af14-8c9be6c9ff52"],
+Cell[1160224, 19161, 232, 5, 36, "Input",ExpressionUUID->"9e023d70-7cde-4ec1-b22e-5389889d89e4"],
+Cell[1160459, 19168, 657, 12, 165, "Text",ExpressionUUID->"f26d07f5-d8ff-4f5a-9c85-82ff4c36cdb9"]
 }
 ]
 *)
